@@ -1,0 +1,84 @@
+{
+    "name": "@khangdt22/typescript-library-starter-template",
+    "version": "0.0.0",
+    "description": "A template for building TypeScript library quickly.",
+    "license": "MIT",
+    "author": "Diep Dang <khangdt310722@gmail.com>",
+    "homepage": "https://github.com/khangdt22/typescript-library-starter-template",
+    "repository": "github:khangdt22/typescript-library-starter-template",
+    "bugs": {
+        "email": "khangdt310722@gmail.com",
+        "url": "https://github.com/khangdt22/typescript-library-starter-template/issues"
+    },
+    "type": "module",
+    "sideEffects": false,
+    "files": [
+        "dist"
+    ],
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "default": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "typesVersions": {
+        "*": {
+            "*": [
+                "./dist/*"
+            ]
+        }
+    },
+    "packageManager": "pnpm@8.6.11",
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "rimraf dist && tsc",
+        "release": "np --no-yarn --no-release-draft --yolo --message='chore: release v%s'",
+        "up": "ncu -i",
+        "lint": "pnpm prettier '**/*.!(js|jsx|cjs|mjs|ts|tsx|cts|mts|d.ts|vue)' && pnpm eslint .",
+        "eslint": "eslint --ignore-path .gitignore --fix",
+        "prettier": "prettier --ignore-path .gitignore --ignore-unknown --write",
+        "preinstall": "npx only-allow pnpm",
+        "prepare": "simple-git-hooks",
+        "prepublishOnly": "pnpm build"
+    },
+    "dependencies": {
+        "@khangdt22/utils": "latest"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^17.6.7",
+        "@commitlint/config-conventional": "latest",
+        "@khangdt22/eslint-config": "latest",
+        "@khangdt22/prettier-config": "latest",
+        "@types/node": "^20.4.8",
+        "eslint": "^8.46.0",
+        "lint-staged": "^13.2.3",
+        "np": "^8.0.4",
+        "npm-check-updates": "^16.10.17",
+        "only-allow": "^1.1.1",
+        "prettier": "^3.0.1",
+        "rimraf": "^5.0.1",
+        "simple-git-hooks": "^2.9.0",
+        "typescript": "^5.1.6"
+    },
+    "commitlint": {
+        "extends": "@commitlint/config-conventional"
+    },
+    "eslintConfig": {
+        "extends": "@khangdt22"
+    },
+    "lint-staged": {
+        "*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,vue}": "pnpm eslint",
+        "*.!(js|jsx|cjs|mjs|ts|tsx|cts|mts|d.ts|vue)": "pnpm prettier"
+    },
+    "prettier": "@khangdt22/prettier-config",
+    "simple-git-hooks": {
+        "commit-msg": "npx --no -- commitlint --edit ${1}",
+        "pre-commit": "npx tsc --noEmit && npx lint-staged"
+    }
+}
